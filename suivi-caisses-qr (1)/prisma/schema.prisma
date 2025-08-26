@@ -1,0 +1,65 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  TECH
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(TECH)
+  createdAt    DateTime @default(now())
+  usages       CaseUsage[]
+}
+
+model Client {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  usages    CaseUsage[]
+}
+
+enum CaseStatus {
+  IN_STOCK
+  IN_USE
+  MAINTENANCE
+  LOST
+}
+
+model Case {
+  id          String      @id @default(cuid())
+  name        String
+  qrCode      String      @unique
+  description String?
+  status      CaseStatus  @default(IN_STOCK)
+  lastScanAt  DateTime?
+  createdAt   DateTime    @default(now())
+  usages      CaseUsage[]
+}
+
+model CaseUsage {
+  id            String   @id @default(cuid())
+  case          Case     @relation(fields: [caseId], references: [id])
+  caseId        String
+  tech          User     @relation(fields: [techId], references: [id])
+  techId        String
+  client        Client   @relation(fields: [clientId], references: [id])
+  clientId      String
+  scannedAt     DateTime @default(now())
+  notes         String?
+  damage        Boolean  @default(false)
+  damageDetails String?
+  locationLat   Float?
+  locationLng   Float?
+}
