@@ -19,11 +19,11 @@
     "allowJs": true,
     "noEmit": true,
     "types": [
-      "node"
+      "node",
+      "next-auth"
     ]
   },
   "include": [
-    "src",
-    "prisma"
+    "src"
   ]
 }
