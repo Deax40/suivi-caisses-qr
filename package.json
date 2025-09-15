@@ -5,11 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "postinstall": "prisma generate && prisma migrate deploy"
+    "start": "next start"
   },
   "dependencies": {
-    "@prisma/client": "^5.15.0",
     "@yudiel/react-qr-scanner": "^2.1.5",
     "bcrypt": "^5.1.1",
     "next": "^14.2.5",
@@ -21,11 +19,9 @@
   "devDependencies": {
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
-    "prisma": "^5.15.0",
     "tailwindcss": "^3.4.6",
-    "typescript": "^5.5.4"
-  },
-  "prisma": {
-    "seed": "node prisma/seed.js"
+    "typescript": "^5.5.4",
+    "@types/react": "^18.2.21",
+    "@types/node": "^20.11.30"
   }
 }
