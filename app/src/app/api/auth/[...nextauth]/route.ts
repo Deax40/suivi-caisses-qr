@@ -1,7 +1,4 @@
 import NextAuth from 'next-auth';
-codex/remove-current-base-and-set-up-site-pnfbbw
-import { authOptions } from '@/lib/auth';
-
 import Credentials from 'next-auth/providers/credentials';
 
 const users = [
@@ -38,7 +35,6 @@ export const authOptions = {
     }
   }
 };
-main
 
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
