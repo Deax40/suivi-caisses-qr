@@ -6,18 +6,20 @@ const users = [
   { id: '2', name: 'Tech', username: 'tech', password: 'tech', role: 'tech' }
 ];
 
-export const authOptions = {
+const handler = NextAuth({
   providers: [
     Credentials({
       credentials: {
         username: { label: 'Identifiant', type: 'text' },
-        password: { label: 'Mot de passe', type: 'password' }
+        password: { label: 'Mot de passe', type: 'password' },
+        role: { label: 'Rôle', type: 'text' }
       },
       async authorize(credentials) {
         const user = users.find(
           u =>
             u.username === credentials?.username &&
-            u.password === credentials?.password
+            u.password === credentials?.password &&
+            u.role === credentials?.role
         );
         if (user) return user as any;
         return null;
@@ -34,7 +36,12 @@ export const authOptions = {
       return token;
     }
   }
-};
+});
 
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+export async function GET(req: Request) {
+  return handler(req);
+}
+
+export async function POST(req: Request) {
+  return handler(req);
+}

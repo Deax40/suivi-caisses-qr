@@ -12,10 +12,12 @@ export default function LoginPage() {
     const formData = new FormData(e.currentTarget);
     const username = formData.get('username') as string;
     const password = formData.get('password') as string;
+    const role = formData.get('role') as string;
     const res = await signIn('credentials', {
       redirect: false,
       username,
-      password
+      password,
+      role
     });
     if (res?.ok) {
       router.push('/tools');
@@ -34,6 +36,13 @@ export default function LoginPage() {
       <div>
         <label className="block mb-1">Mot de passe</label>
         <input name="password" type="password" className="w-full border p-2" />
+      </div>
+      <div>
+        <label className="block mb-1">Rôle</label>
+        <select name="role" className="w-full border p-2">
+          <option value="tech">Tech</option>
+          <option value="admin">Admin</option>
+        </select>
       </div>
       {error && <p className="text-red-600">{error}</p>}
       <button type="submit" className="bg-blue-600 text-white px-4 py-2">Se connecter</button>
